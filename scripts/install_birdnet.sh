@@ -25,11 +25,12 @@ sudo -E HOME=$HOME USER=$USER ./install_services.sh || exit 1
 source /etc/birdnet/birdnet.conf
 
 install_birdnet() {
+  mkdir ~/tmp
   cd ~/BirdNET-Pi || exit 1
   echo "Establishing a python virtual environment"
   python3 -m venv birdnet
   source ./birdnet/bin/activate
-  pip3 install wheel
+  TMPDIR=~/tmp pip3 install wheel
   get_tf_whl
   pip3 install -U -r ./requirements_custom.txt
 }
