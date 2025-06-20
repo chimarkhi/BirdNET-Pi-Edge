@@ -75,11 +75,15 @@ def extract_detection(file: ParseFileName, detection: Detection):
     new_file_name = f'{detection.common_name_safe}-{detection.confidence_pct}-{detection.date}-birdnet-{file.RTSP_id}{detection.time}.{conf["AUDIOFMT"]}'
     new_dir = os.path.join(conf['EXTRACTED'], 'By_Date', f'{detection.date}', f'{detection.common_name_safe}')
     new_file = os.path.join(new_dir, new_file_name)
+    new_file_cloudbkup = os.path.join(conf['CLOUD_UPLOAD_DIR'], new_file_name)
     if os.path.isfile(new_file):
         log.warning('Extraction exists. Moving on: %s', new_file)
     else:
         os.makedirs(new_dir, exist_ok=True)
+        os.makedirs(conf['CLOUD_UPLOAD_DIR'], exist_ok=True)
         extract_safe(file.file_name, new_file, detection.start, detection.stop)
+        extract_safe(file.file_name, new_file_cloudbkup, 0, conf.getint('RECORDING_LENGTH')) # chimarkhi: added a separate mp3 extraction for cloud upload
+        log.info(f"Extracted file for cloud upload {new_file_cloudbkup}")
         spectrogram(new_file, detection.common_name, new_file.replace(os.path.expanduser('~/'), ''))
     return new_file
 

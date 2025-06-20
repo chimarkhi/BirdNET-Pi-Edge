@@ -55,6 +55,23 @@ EOF
   systemctl enable birdnet_analysis.service
 }
 
+install_cloud_upload() {
+  cat << EOF > $HOME/BirdNET-Pi/templates/cloud_upload.service
+[Unit]
+Description=Upload inferred and raw audio data to AWS backend
+[Service]
+Restart=always
+Type=simple
+RestartSec=2
+User=${USER}
+ExecStart=$PYTHON_VIRTUAL_ENV /usr/local/bin/cloud_upload.py --daemon --sleep 2
+[Install]
+WantedBy=multi-user.target
+EOF
+  ln -sf $HOME/BirdNET-Pi/templates/cloud_upload.service /usr/lib/systemd/system
+  systemctl enable cloud_upload.service
+}
+
 create_necessary_dirs() {
   echo "Creating necessary directories"
   [ -d ${EXTRACTED} ] || sudo -u ${USER} mkdir -p ${EXTRACTED}
@@ -62,6 +79,7 @@ create_necessary_dirs() {
   [ -d ${EXTRACTED}/Charts ] || sudo -u ${USER} mkdir -p ${EXTRACTED}/Charts
   [ -d ${PROCESSED} ] || sudo -u ${USER} mkdir -p ${PROCESSED}
   [ -d $RECS_DIR/StreamData ] || sudo -u ${USER} mkdir -p $RECS_DIR/StreamData
+  [ -d $RECS_DIR/StreamData ] || sudo -u ${USER} mkdir -p $RECS_DIR/CloudUpload
   [ -L ${EXTRACTED}/spectrogram.png ] || sudo -u ${USER} ln -sf ${RECS_DIR}/StreamData/spectrogram.png ${EXTRACTED}/spectrogram.png
 
   sudo -u ${USER} ln -fs $my_dir/exclude_species_list.txt $my_dir/scripts
