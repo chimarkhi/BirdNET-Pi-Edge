@@ -284,6 +284,15 @@ IDFILE=$HOME/BirdNET-Pi/IdentifiedSoFar.txt
 LogLevel_BirdnetRecordingService="error"
 LogLevel_LiveAudioStreamService="error"
 LogLevel_SpectrogramViewerService="error"
+
+# DATA UPLOAD to custom backend
+# If checkpoint not found while updloading db data, the number of days checkpoint default to
+SPECIESID_POST_URL=
+INFERENCE_UPLOAD_DEFAULT_RESETDAYS=10
+CLOUD_UPLOAD_DIR=~/BirdSongs/CloudUpload
+# DATA UPLOAD to custom backend
+AUDIO_POST_URL=
+
 EOF
 }
 

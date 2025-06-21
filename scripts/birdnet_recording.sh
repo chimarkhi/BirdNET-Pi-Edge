@@ -14,6 +14,7 @@ fi
 
 [ -z $RECORDING_LENGTH ] && RECORDING_LENGTH=15
 [ -d $RECS_DIR/StreamData ] || mkdir -p $RECS_DIR/StreamData
+[ -d $RECS_DIR/StreamData ] || mkdir -p $RECS_DIR/CloudData
 
 if [ ! -z $RTSP_STREAM ];then
   # Explode the RSPT steam setting into an array so we can count the number we have
