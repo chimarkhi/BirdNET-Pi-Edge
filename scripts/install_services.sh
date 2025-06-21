@@ -428,6 +428,7 @@ install_services() {
   install_Caddyfile
   install_avahi_aliases
   install_birdnet_analysis
+  install_cloud_upload
   install_birdnet_stats_service
   install_recording_service
   install_custom_recording_service # But does not enable

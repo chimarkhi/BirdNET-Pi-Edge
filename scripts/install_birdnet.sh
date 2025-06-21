@@ -32,7 +32,7 @@ install_birdnet() {
   source ./birdnet/bin/activate
   TMPDIR=~/tmp pip3 install wheel
   get_tf_whl
-  pip3 install -U -r ./requirements_custom.txt
+  TMPDIR=~/tmp pip3 install -U -r ./requirements_custom.txt
 }
 
 [ -d ${RECS_DIR} ] || mkdir -p ${RECS_DIR} &> /dev/null
