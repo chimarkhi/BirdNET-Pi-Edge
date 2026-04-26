@@ -109,8 +109,15 @@ Currently listening in these countries . . . that I know of . . .
 Please note that installing BirdNET-Pi on top of other servers is not supported. If this is something that you require, please open a discussion for your idea and inquire about how to contribute to development.
 
 [Raspberry Pi 3B[+] and 0W2 installation guide available here](https://github.com/mcguirepr89/BirdNET-Pi/wiki/RPi0W2-Installation-Guide)
+Before running the installation script, you may need to enable passwordless sudo for your user. You may do so by 
+``` bash
+sudo visudo
+# Will open the sudoers file for safe edit.
+# At the end of the file add this line, replacing username with your actual username
+username ALL=(ALL) NOPASSWD: ALL 
+```
 
-The system can be installed with:
+Once passwordless sudo is enabled, the system can be installed with:
 ```
 curl -s https://raw.githubusercontent.com/chimarkhi/BirdNET-Pi-Edge/main/newinstaller.sh | bash
 ```
